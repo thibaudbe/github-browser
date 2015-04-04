@@ -2,7 +2,7 @@ var request = require('superagent');
 var Item = require('../models/Item');
 
 
-var getSearch = function(id, res) {
+var getSearch = function(query, res) {
 
 	var getData = function(_items) {
 		return res.json({
@@ -12,7 +12,7 @@ var getSearch = function(id, res) {
 
 	var getItems = function() {
 		request
-			.get('https://api.github.com/search/repositories?q='+ id)
+			.get('https://api.github.com/search/repositories?q='+ query)
 			.set('Accept', 'application/json')
 			.end(function(err, response){
 				if (response.ok) {
