@@ -7,6 +7,8 @@ var browserify = require('browserify');
 var reactify = require('reactify');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+var proxy = require('proxy-middleware');
+var url = require('url');
 var es = require('event-stream');
 var spawn = require('child_process').spawn;
 var $ = require('gulp-load-plugins')({
@@ -23,17 +25,17 @@ var port = 1337;
 var paths = {
 	base: __dirname,
 	src: {
-		base 	: 'src/',
+		base 	: 'public/src/',
 		js 	  : 'app/',
-		img   : 'src/img/',
-		scss  : 'src/scss/'
+		img   : 'public/src/img/',
+		scss  : 'public/src/scss/'
 	},
 	dist: {
-		base  : 'public/',
-		css   : 'public/css/',
-		js    : 'public/js/',
-		img   : 'public/img/',
-		fonts : 'public/fonts/'
+		base  : 'public/dist/',
+		css   : 'public/dist/css/',
+		js    : 'public/dist/js/',
+		img   : 'public/dist/img/',
+		fonts : 'public/dist/fonts/'
 	},
 	bower: './bower_components/' 
 };
@@ -153,12 +155,16 @@ gulp.task('styles', function() {
 
 
 
-
 // browser-sync task for starting the server.
 gulp.task('browser-sync', function() {
+	// var proxyOptions = url.parse('http://localhost:5000');
+	// proxyOptions.route = '/api';
 	browserSync({
 		server: {
-			baseDir: paths.base
+			open: true,
+			port: 3000,
+			baseDir: paths.base,
+			// middleware: [proxy(proxyOptions)]
 		},
 		browser: 'google chrome canary'
 	});
@@ -167,17 +173,20 @@ gulp.task('browser-sync', function() {
 // gulp.task('browser-sync', ['develop'], function() {
 // 	browserSync.init(null, {
 // 		proxy: 'http://localhost:5000',
-// 		files: ['public/**/*.*'],
+// 		files: ['public/dist/**/*.*'],
 // 		browser: 'google chrome canary',
-// 		port: 3000,
 // 	});
 // });
 
 // gulp.task('develop', function (cb) {
+// 	var called = false;
 // 	return $.nodemon({
 // 		script: 'app.js'
 // 	}).on('start', function () {
-// 		cb();
+// 		if (!called) {
+// 			called = true;
+// 			cb();
+// 		}
 // 	});
 // });
 

@@ -1,9 +1,10 @@
 {
   "name": "github-browser",
   "version": "0.0.1",
-  "description": "Isomorphic Github browser",
+  "description": "Isomorphic ReactJS Github browser",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "postinstall": "node bower install && node npm install && node gulp build"
   },
   "repository": {
     "type": "git",
@@ -43,7 +44,9 @@
     "gulp-util": "^3.0.3",
     "gulp-watch": "^4.1.1",
     "lodash": "^3.6.0",
-    "reactify": "^1.1.0"
+    "proxy-middleware": "^0.11.0",
+    "reactify": "^1.1.0",
+    "url": "^0.10.3"
   },
   "dependencies": {
     "body-parser": "~1.0.0",

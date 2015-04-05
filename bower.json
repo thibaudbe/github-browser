@@ -1,10 +1,10 @@
 {
-  "name": "github-theme-starter",
+  "name": "github-browser",
   "version": "1.0.0",
   "authors": [
     "Thibaud B. <contact@thibaudb.com>"
   ],
-  "description": "A front-end env for github theme project",
+  "description": "Isomorphic ReactJS Github browser",
   "main": "gulpfile.js",
   "keywords": [
     "javascript",
