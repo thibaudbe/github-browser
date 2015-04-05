@@ -36,7 +36,7 @@ var getProject = function(owner, repo, res) {
 
 	var getCommits = function(_infos) {
 		request
-			.get('https://api.github.com/repos/'+ owner +'/'+ repo +'/commits')
+			.get('https://api.github.com/repos/'+ owner +'/'+ repo +'/commits?per_page=100')
 			.set('Accept', 'application/json')
 			.end(function(err, response){
 				if (response.ok) {

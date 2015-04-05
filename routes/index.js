@@ -29,7 +29,6 @@ router.get(api_path +'/search/:query', function(req, res, next) {
 });
 
 router.get(api_path +'/project/:owner/:repo', function(req, res, next) {
-	console.log('repo', req.params.owner, req.params.repo)
 	return getProject(req.params.owner, req.params.repo, res)
 });
 
@@ -44,6 +43,7 @@ router.use(function(req, res, next) {
 
 	// Html bootstrap
 	Router.run(Routes, req.url, function(Handler, state) {
+
 		// Async API loader
 		ReactAsync.renderToStringAsync(React.createElement(Handler, state), function(err, markup) {
 			if (err) return next(err);
@@ -56,7 +56,7 @@ router.use(function(req, res, next) {
 				+ React.renderToStaticMarkup(
 					React.createElement(Html, { 
 						markup: markup, 
-						path: req.path 
+						path: state
 					})
 				)
 			);

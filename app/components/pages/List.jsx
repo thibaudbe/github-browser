@@ -1,21 +1,17 @@
 'use strict';
 
-var React      = require('react');
+var React      = require('react/addons');
 var Reflux     = require('reflux');
 var reactAsync = require('react-async');
+var moment 	   = require('moment');
 
 var DocumentTitle	 = require('react-document-title');
 var Router         = require('react-router');
 var RouteHandler   = Router.RouteHandler;
 var Link           = Router.Link;
 
-var AppActions = require('../../actions/AppActions');
+var AppActions  = require('../../actions/AppActions');
 var SearchStore = require('../../stores/SearchStore');
-
-// var ReactCSSTransitionGroup = require('react/lib/ReactCSSTransitionGroup');
-// var React = require('react/addons');
-// var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-// var VelocityTransitionGroup = require('../ui/VelocityTransitionGroup.jsx');
 
 
 var Index = React.createClass({
@@ -25,6 +21,7 @@ var Index = React.createClass({
 	getInitialStateAsync: function(cb) {
 		AppActions.onSearch(this.props.query)
 		SearchStore.listen(function(data) {
+			console.log('data', data);
 			try {
 				return cb(null, data)
 			} catch(err) {
@@ -52,11 +49,11 @@ var Index = React.createClass({
 			return this.state.items.map(function(elem, i) {
 				return (
 					<li key={i}>
-						{/*<VelocityTransitionGroup transitionName="example">*/}
 							<Link to="project" params={{owner: elem.owner.name, repo: elem.repository.name}}>
 								<b>{elem.repository.name}</b> <small>by {elem.owner.name}</small>
+								<span className="date">since {moment(elem.repository.created_at).format("MMM Do YY")}</span>
+								<span className="size">{elem.repository.size} Kb</span>
 							</Link>
-						{/*</VelocityTransitionGroup>*/}
 					</li>
 				)
 			}.bind(this))
@@ -64,16 +61,30 @@ var Index = React.createClass({
 	},
 
 	render: function() {
-		if ((typeof this.state.items == 'undefined') || (typeof this.state.items == null))
-			return <div>Loading list</div>;
+		if ((typeof this.state.items == 'undefined') || (typeof this.state.items == null)) {
+			return (
+				<div className="page page-loading">
+					<div className="loading">
+						<img src="/img/github-loader.gif" width="100" height="100" />
+					</div>
+				</div>
+			);
+		}
 
 		return (
-			<div>
-				<h1>List page</h1>
-				<ul>
-					{this.renderList()}
-				</ul>
-			</div>
+			<DocumentTitle title={'Github Browser • '+ this.props.query}>
+				<div className="page page-search">
+					<div className="page__inner">
+						<h1>Results for : <i>{this.props.query}</i></h1>
+					</div>
+					<hr/>
+					<div className="page__inner">
+						<ul className="list">
+							{this.renderList()}
+						</ul>
+					</div>
+				</div>
+			</DocumentTitle>
 		);
 	}
 

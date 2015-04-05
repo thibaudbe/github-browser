@@ -10,6 +10,7 @@ var State         = Router.State;
 
 var Routes        = require('./Routes.jsx');
 var Navbar        = require('./components/partials/Navbar.jsx');
+var Footer        = require('./components/partials/Footer.jsx');
 
 
 var App = React.createClass({
@@ -18,20 +19,25 @@ var App = React.createClass({
 	getInitialState: function() {
 		return {
 			// Return path object from server router
-			path: typeof window === 'undefined' ? this.props.path : window.location.pathname
+			path: typeof window === 'undefined' ? this.props.path : window.location.pathname,
 		}
 	},
 
 	onSearch: function(query) {
-		this.context.router.transitionTo('list', { query: query });
+		this.context.router.transitionTo('list', { query: query })
 	},
 
 	render: function() {
 		return (
 			<DocumentTitle title={'Github Browser'}>
 				<div className="wrap">
-					<Navbar onSearch={this.onSearch} {...this.props.params} />
-					<RouteHandler {...this.props.params} />
+					<div className="container">
+						<div className="wrap__inner">
+							<Navbar onSearch={this.onSearch} {...this.props} />
+							<RouteHandler {...this.props.params} />
+						</div>
+					</div>
+					<Footer/>
 				</div>
 			</DocumentTitle>
 		)
