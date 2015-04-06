@@ -1,12 +1,14 @@
 
 // Colors
 $blue: #60AEDC;
+$dark-blue: #31455A;
 $sand: #E4CEA5;
 
 $simple-grey: #444;
 $grey: #BFC5CE;
 $small-grey: #343D46;
 $beige: #ddd;
+// D2D2D2
 $light-grey: #FDFDFD;
 $dark-beige: #939292;
 
@@ -25,14 +27,17 @@ $header-bg: $light-grey;
 // $header-links-hover: $medium-blue;
 // $header-links-icons: $small-grey;
 
-$background-before: $blue;
-$background: $sand;
+// #444E59
+$background-before: lighten($small-grey, 5%);
+$background: $small-grey;
 
 $primary-link: $orange;
-$primary-color: $simple-grey;
+$primary-color: $dark-blue;
 $inactive-color: $beige;
 
 
 // Breakpoints
 $mobile: 480px;
 $tablet: 728px;
+
+$max-width: 68em;

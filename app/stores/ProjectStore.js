@@ -9,7 +9,7 @@ var AppActions = require('../actions/AppActions');
 var ProjectStore = Reflux.createStore({
 
 	init: function() {
-		this.listenTo(AppActions.onGetData, this.getProject)
+		this.listenTo(AppActions.onGetProject, this.getProject)
 	},
 
 	getProject: function(owner, repo) {
@@ -20,10 +20,9 @@ var ProjectStore = Reflux.createStore({
 			.get(domain +'/api/project/'+ owner +'/'+ repo)
 			.end(function(err, res){
 				if (res.ok) {
-					return self.trigger(res.body);
+					return self.trigger(res.body)
 				} else {
-					console.log('ERROR', err);
-					return err;
+					return self.trigger(err)
 				}
 			}
 		);

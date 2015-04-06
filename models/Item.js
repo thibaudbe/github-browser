@@ -1,7 +1,7 @@
 
 /**
  * Item model
- * @param {string} item from Items array
+ * @param {object} item from Items object
  */
 
 var Item = function (item) {

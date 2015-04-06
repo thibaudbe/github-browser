@@ -7,9 +7,11 @@ var Loader = React.createClass({
 
 	render: function() {
 		return (
-			<div className="page page-loading">
-				<div className="loading">
-					<img src="/img/github-loader.gif" width="100" height="100" />
+			<div className="screen">
+				<div className="center">
+					<div className="loading">
+						<img src="/img/github-loader.gif" width="100" height="100" />
+					</div>
 				</div>
 			</div>
 		);

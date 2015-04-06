@@ -31,11 +31,9 @@ var App = React.createClass({
 		return (
 			<DocumentTitle title={'Github Browser'}>
 				<div className="wrap">
-					<div className="container">
-						<div className="wrap__inner">
-							<Navbar onSearch={this.onSearch} {...this.props} />
-							<RouteHandler {...this.props.params} />
-						</div>
+					<div className="wrap__inner">
+						<Navbar onSearch={this.onSearch} {...this.props} />
+						<RouteHandler {...this.props.params} />
 					</div>
 					<Footer/>
 				</div>

@@ -12,6 +12,8 @@ var Link           = Router.Link;
 
 var AppActions  = require('../../actions/AppActions');
 var SearchStore = require('../../stores/SearchStore');
+var Loader  	  = require('../partials/Loader.jsx');
+var Error  	  = require('../partials/Error.jsx');
 
 
 var Index = React.createClass({
@@ -19,13 +21,13 @@ var Index = React.createClass({
 	mixins: [reactAsync.Mixin, Reflux.ListenerMixin],
 
 	getInitialStateAsync: function(cb) {
-		AppActions.onSearch(this.props.query)
+		AppActions.onGetSearch(this.props.query)
 		SearchStore.listen(function(data) {
-			console.log('data', data);
 			try {
 				return cb(null, data)
 			} catch(err) {
-				console.log('err', err);
+				return err
+				// console.log('err', err);
 			}
 		})
 	},
@@ -36,7 +38,7 @@ var Index = React.createClass({
 
 	componentWillReceiveProps: function(nextProps) {
 		if(typeof nextProps.query !== 'undefined') {
-			AppActions.onSearch(nextProps.query)
+			AppActions.onGetSearch(nextProps.query)
 		}
 	},
 
@@ -49,11 +51,13 @@ var Index = React.createClass({
 			return this.state.items.map(function(elem, i) {
 				return (
 					<li key={i}>
-							<Link to="project" params={{owner: elem.owner.name, repo: elem.repository.name}}>
-								<b>{elem.repository.name}</b> <small>by {elem.owner.name}</small>
-								<span className="date">since {moment(elem.repository.created_at).format("MMM Do YY")}</span>
-								<span className="size">{elem.repository.size} Kb</span>
-							</Link>
+						<Link to="project" params={{owner: elem.owner.name, repo: elem.repository.name}}>
+							<b>{elem.repository.name}</b>
+							<span className="name">By {elem.owner.name}</span>
+							<span className="date"><i className="icon fa fa-clock-o"></i> {moment(elem.repository.created_at).subtract(10, 'days').calendar()}</span>
+							<span className="update"><i className="icon fa fa-refresh"></i> {moment(elem.repository.update_at).subtract(10, 'days').calendar()}</span>
+							<span className="size">{elem.repository.size} Kb <i className="icon fa fa-files-o"></i></span>
+						</Link>
 					</li>
 				)
 			}.bind(this))
@@ -61,27 +65,31 @@ var Index = React.createClass({
 	},
 
 	render: function() {
-		if ((typeof this.state.items == 'undefined') || (typeof this.state.items == null)) {
-			return (
-				<div className="page page-loading">
-					<div className="loading">
-						<img src="/img/github-loader.gif" width="100" height="100" />
-					</div>
-				</div>
-			);
-		}
+		if ((typeof this.state.items == 'undefined') || (typeof this.state.items == null))
+			return <Loader />
+
+		if (typeof this.state.items === 'string')
+			return <Error />
 
 		return (
 			<DocumentTitle title={'Github Browser • '+ this.props.query}>
-				<div className="page page-search">
+				<div className="page page-list">
 					<div className="page__inner">
-						<h1>Results for : <i>{this.props.query}</i></h1>
+						<div className="page__content">
+							<h1>
+								<i className="icon fa fa-search"></i>
+								<span className="light">{this.state.items.length} Result{this.state.items.length>1 ? 's' : ''} for</span> 
+								&nbsp;<i>{this.props.query}</i>
+							</h1>
+						</div>
 					</div>
 					<hr/>
 					<div className="page__inner">
-						<ul className="list">
-							{this.renderList()}
-						</ul>
+						<div className="page__content">
+							<ul className="list">
+								{this.renderList()}
+							</ul>
+						</div>
 					</div>
 				</div>
 			</DocumentTitle>

@@ -1,12 +1,32 @@
 
-.page-search {
+.page-list {
 
 	h1 {
 		margin-left: 1.5em;
 		margin-right: 1.5em;
+
+		.icon {
+			margin-right: 1em;
+			color: $beige
+		}
+
+		.light {
+			font-weight: normal
+		}
 	}
 
 	.list {
+
+		li {
+			@extend .animate;
+
+			@for $i from 1 through 30 {
+				&:nth-of-type(#{$i}) {
+					-webkit-animation-delay: #{$i * 100}ms;
+					animation-delay: #{$i * 100}ms;
+				}
+			}
+		}
 
 		a {
 			padding: 1em 1.5em;
@@ -15,36 +35,52 @@
 			color: $primary-color;
 
 			&:hover {
-				background: $header-bg;
-				box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06);
+				background: darken($header-bg, 5%);
+				border-radius: 4px;
+				// box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06);
 
 				&::before,
 				&::after {
 					content: "";
 					position: absolute;
-					background: $header-bg;
+					background: darken($header-bg, 5%);
 					left: 0;
 					right: 0;
 					height: 10px;
 				}
 				&::before {
 					top: 0;
+					border-radius: 4px 4px 0 0;
 				}
 				&::after {
 					bottom: 0;
+					border-radius: 0 0 4px 4px;
 				}
 			}
 
-			.date {
+			.icon {
+				color: $beige;
+				margin: 0 .5em
+			}
+			
+			.date, .update, .size {
+			  top: 26px;
 				position: absolute;
-				right: 280px;
 				font-size: .8em;
 			}
-
+			.name {
+				display: block;
+				font-size: .6em;
+				text-transform: uppercase;
+			}
+			.date {
+				left: 420px;
+			}
+			.update {
+				left: 220px;
+			}
 			.size {
-				position: absolute;
 				right: 20px;
-				font-size: .8em;
 			}
 		}
 	}

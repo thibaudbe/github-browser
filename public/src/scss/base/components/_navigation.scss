@@ -1,9 +1,20 @@
 
+.form-group {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 0 1em;
+	z-index: 100;
+}
+
 .form {
 	margin: auto;
 	width: 30%;
 	padding-top: 12em;
 	transition: padding 200ms ease-in-out, width 200ms ease-in-out;
+	max-width: $max-width;
+	position: relative;
 
 	&.is-inactived {
 		form {
@@ -26,24 +37,40 @@
 	&.is-actived {	
 		border-radius: 2px 2px 0 0;
 		background: $header-bg;
-		border-bottom: 1px solid $beige;
-		margin-top: initial !important;
+		// border-bottom: 1px solid $beige;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		margin-top: 42px !important;
 		width: 100%;
-		padding: .7em;
+		padding: .73em;
+
+		.back {
+			display: block;
+		}
+
+		form {
+			padding-left: 50px;
+			padding-right: 50px;
+		}
 
 		input {
 			text-align: left;
-			padding-right: 50px;
-		  background-color: transparent;
+			background-color: transparent;
 		}
 
 		button {
-			padding: 1.3em 2.1em;
+			padding: 1.3em 1.5em;
 		}
 
 		&.is-focused {
 			background: #fff !important;
 			padding: 0;
+			z-index: 120;
+		  position: relative;
+
+			form {
+				padding-left: 0;
+				padding-right: 0;
+			}
 
 			// &::after {
 			// 	content: "";
@@ -58,13 +85,14 @@
 
 			input {
 				border-radius: 0 !important;
-				padding: 1.2em 1.2em;
+				padding: 1.25em 3.8em;
 			}
 		}
 	}
 
 	form {
-		
+		transition: padding 200ms ease-in-out;
+
 		input {
 			margin-bottom: initial;
 			text-align: center;
@@ -104,6 +132,24 @@
 			.icon {
 				color: $inactive-color;
 			}
+		}
+	}
+
+	.back {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding: .7em 1.0em;
+		margin: 0.35em;
+		border-radius: 50%;
+		color: $beige;
+		transition: background 200ms ease-in-out, color 200ms ease-in-out;
+		z-index: 110;
+
+		&:hover {
+			color: #fff;
+			background: darken($beige, 8%)		
 		}
 	}
 }

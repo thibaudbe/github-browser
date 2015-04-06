@@ -9,7 +9,7 @@ var AppActions = require('../actions/AppActions');
 var SearchStore = Reflux.createStore({
 
   init: function() {
-    this.listenTo(AppActions.onSearch, this.getSearch)
+    this.listenTo(AppActions.onGetSearch, this.getSearch)
   },
 
   getSearch: function(query) {
@@ -20,10 +20,9 @@ var SearchStore = Reflux.createStore({
 			.get(domain +'/api/search/'+ query)
       .end(function(err, res){
         if (res.ok) {
-          return self.trigger(res.body);
+          return self.trigger(res.body)
         } else {
-          console.log('ERROR', err);
-          return err;
+          return self.trigger(err)
         }
       });
   }

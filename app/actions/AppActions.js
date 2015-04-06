@@ -5,8 +5,8 @@ var request = require('superagent');
 
 
 var AppActions = Reflux.createActions([
-	'onSearch',
-  'onGetData'
+	'onGetSearch',
+  'onGetProject'
 ]);
 
 
