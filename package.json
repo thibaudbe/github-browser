@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "Isomorphic ReactJS Github browser",
   "scripts": {
-    "start": "node ./bin/www",
-    "postinstall": "node bower install && node gulp build"
+    "start": "node ./bin/www"
   },
   "engines": {
     "node": "0.10.x",
