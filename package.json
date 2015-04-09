@@ -4,7 +4,7 @@
   "description": "Isomorphic ReactJS Github browser",
   "scripts": {
     "start": "node ./bin/www",
-    "postinstall": "node bower install && node npm install && node gulp build"
+    "postinstall": "node node_modules/bower/bin/bower install && node node_modules/gulp/bin/gulp build"
   },
   "engines": {
     "node": "0.10.x",
