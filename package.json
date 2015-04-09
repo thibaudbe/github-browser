@@ -6,6 +6,10 @@
     "start": "node ./bin/www",
     "postinstall": "node bower install && node npm install && node gulp build"
   },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "2.1.x"
+  }
   "repository": {
     "type": "git",
     "url": "https://github.com/thibaudbe/github-browser.git"
