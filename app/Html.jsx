@@ -18,7 +18,7 @@ var Html = React.createClass({
 					<script type="text/javascript" src="/js/head-bundle.js?v=100"></script>
 				</head>
 				<body>
-					<div dangerouslySetInnerHTML={{__html: this.props.markup}} {...this.props.path} />
+					<div style={{height: '100%'}} dangerouslySetInnerHTML={{__html: this.props.markup}} {...this.props.path} />
 					<script type="text/javascript" src="/js/bundle.js?v=100"></script>
 				</body>
 			</html>
