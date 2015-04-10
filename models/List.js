@@ -1,10 +1,10 @@
 
 /**
- * Item model
- * @param {object} item from Items object
+ * List model
+ * @param {object} item > From Items object
  */
 
-var Item = function (item) {
+var List = function (item) {
 	return {
 		repository: {
 			name: item.name,
@@ -14,7 +14,9 @@ var Item = function (item) {
 			pushed_at: item.pushed_at,
 			size: item.size,
 			language: item.language,
-			watchers: item.watchers
+			watchers: item.watchers,
+			stargazers: item.stargazers_count,
+			forks: item.forks_count
 		},
 		owner: {
 			name: item.owner.login,
@@ -25,4 +27,4 @@ var Item = function (item) {
 };
 
 
-module.exports = Item;
+module.exports = List;

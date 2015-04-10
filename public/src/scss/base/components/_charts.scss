@@ -1,0 +1,50 @@
+
+#timeline {
+	// background: $bg-time;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.axis text {
+  font: 10px sans-serif;
+  color: lighten($bg-time, 5%);
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: lighten($bg-time, 5%);
+  shape-rendering: crispEdges;
+}
+
+.graph {
+  fill: none;
+  stroke: lighten($bg-time, 30%);
+  stroke-width: 3;
+  //opacity: 0.4;
+}
+
+.dot {
+  stroke: lighten($bg-time, 30%);
+  stroke-width: 3;
+  fill: $bg-time;
+  //opacity: 0.6;
+  cursor: pointer;
+}
+
+
+div.tooltip {	
+	color: lighten($bg-time, 30%);
+	position: absolute;			
+	z-index: 99;
+	text-align: center;			
+	padding: 5px;				
+	font: 12px sans-serif;		
+	background: darken($bg-time, 30%);	
+	border: 0px;		
+	border-radius: 8px;			
+	pointer-events: none;			
+	transform: translate(-40px, -10px);
+}
+
+

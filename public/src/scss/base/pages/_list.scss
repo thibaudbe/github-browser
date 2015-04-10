@@ -29,7 +29,7 @@
 		}
 
 		a {
-			padding: 1em 1.5em;
+			padding: .5em 1.5em;
 			display: block;
 			position: relative;
 			color: $primary-color;
@@ -63,25 +63,17 @@
 				margin: 0 .5em
 			}
 			
-			.date, .update, .size {
-			  top: 26px;
-				position: absolute;
+			.info {
+				line-height: 2;
+				float: right;
 				font-size: .8em;
 			}
+			
 			.name {
-				display: block;
 				font-size: .6em;
 				text-transform: uppercase;
 			}
-			.date {
-				left: 420px;
-			}
-			.update {
-				left: 220px;
-			}
-			.size {
-				right: 20px;
-			}
+					
 		}
 	}
 }

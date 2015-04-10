@@ -49,18 +49,50 @@ var Index = React.createClass({
 	renderList: function() {
 		if ((typeof this.state.items !== 'undefined') || (this.state.items !== null)) {
 			return this.state.items.map(function(elem, i) {
+							// <span className="update"><i className="icon fa fa-clock-o"></i>Updated {moment(elem.repository.updated_at).startOf('day').fromNow()}</span>
 				return (
 					<li key={i}>
 						<Link to="project" params={{owner: elem.owner.name, repo: elem.repository.name}}>
 							<b>{elem.repository.name}</b>
-							<span className="name">By {elem.owner.name}</span>
-							<span className="date"><i className="icon fa fa-clock-o"></i> {moment(elem.repository.created_at).subtract(10, 'days').calendar()}</span>
-							<span className="update"><i className="icon fa fa-refresh"></i> {moment(elem.repository.update_at).subtract(10, 'days').calendar()}</span>
-							<span className="size">{elem.repository.size} Kb <i className="icon fa fa-files-o"></i></span>
+							<span className="name"> / {elem.owner.name}</span>
+							<span className="info">
+								<b>{elem.repository.language}</b>
+								<span className="size"><i className="icon fa fa-star-o"></i> {elem.repository.stargazers}</span>
+								<span className="size"><i className="icon fa fa-code-fork"></i> {elem.repository.forks}</span>
+							</span>
 						</Link>
 					</li>
 				)
 			}.bind(this))
+		}
+	},
+
+	renderHeader: function() {
+		var item_width = this.state.items.length;
+		if (item_width > 1) {
+			return (
+				<h1>
+					<i className="icon fa fa-search"></i>
+					<span className="light">{item_width} Results for</span>
+					&nbsp;<i>{this.props.query}</i>
+				</h1>
+			)
+		} else if (item_width == 0) {
+			return (
+				<h1>
+					<i className="icon fa fa-exclamation-triangle"></i>
+					<span className="light">Oops ! no results founded for</span>
+					&nbsp;<i>{this.props.query}</i>
+				</h1>
+			)
+		} else {
+			return (
+				<h1>
+					<i className="icon fa fa-search"></i>
+					<span className="light">{item_width} Result for</span>
+					&nbsp;<i>{this.props.query}</i>
+				</h1>
+			)
 		}
 	},
 
@@ -76,11 +108,7 @@ var Index = React.createClass({
 				<div className="page page-list">
 					<div className="page__inner">
 						<div className="page__content">
-							<h1>
-								<i className="icon fa fa-search"></i>
-								<span className="light">{this.state.items.length} Result{this.state.items.length>1 ? 's' : ''} for</span> 
-								&nbsp;<i>{this.props.query}</i>
-							</h1>
+							{this.renderHeader()}
 						</div>
 					</div>
 					<hr/>

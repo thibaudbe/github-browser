@@ -1,7 +1,7 @@
 
 /**
  * Contributor model
- * @param {string} item from Contributors array
+ * @param {String} item  > From Contributors array
  */
 
 var Contributor = function (item) {

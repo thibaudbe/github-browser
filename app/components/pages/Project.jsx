@@ -11,15 +11,13 @@ var RouteHandler   = Router.RouteHandler;
 var Link           = Router.Link;
 var Navigation     = Router.Navigation;
 
-// Chart.defaults.global.responsive = true;
-
 var AppActions   = require('../../actions/AppActions');
 var ProjectStore = require('../../stores/ProjectStore');
 var Loader  	   = require('../partials/Loader.jsx');
 var Error  	     = require('../partials/Error.jsx');
-var Activity  	 = require('../partials/Activity.jsx');
-var Commits  	   = require('../partials/Commits.jsx');
-var Languages  	 = require('../partials/Languages.jsx');
+
+var Timeline  	 = require('../charts/Timeline.jsx');
+var ProgressBar  	 = require('../charts/ProgressBar.jsx');
 
 
 var Project = React.createClass({
@@ -49,6 +47,18 @@ var Project = React.createClass({
 		})
 	},
 
+	renderActivity: function() {
+		return this.state.activity.map(function(elem, i) {
+			return (
+				<li key={i}>
+					<span className="number">{elem.value}</span> 
+					<img src={elem.login !=='' ? 'https://avatars.githubusercontent.com/'+ elem.login : '/img/default.png'} width="80" height="80" />
+					<span className="name">{elem.name}</span> 
+				</li>
+			)
+		})
+	},
+
 	render: function() {
 		if ((typeof (this.state.infos || this.state.commits || this.state.contributors || this.state.activity) == 'undefined'))
 			return <Loader />
@@ -56,33 +66,37 @@ var Project = React.createClass({
 		if (typeof (this.state.infos || this.state.commits || this.state.contributors || this.state.activity) === 'string')
 			return <Error />
 
-		console.log('this.state', this.state)
-
 		return (
 			<DocumentTitle title={'Github Browser • '+ this.state.infos.repository.name}>
 				<div className="page page-project">
+					<Timeline commits={this.state.commits} />
 					<div className="page__inner">
 						<div className="infos has-background">
-							<img src={'https://avatars.githubusercontent.com/'+ this.state.infos.owner.name} width="100" height="100" />
+							<img src={'https://avatars.githubusercontent.com/'+ this.state.infos.owner.name} width="50" height="50" />
 							<h1>{this.state.infos.repository.name}</h1>
-							<p>since {moment(this.state.infos.repository.created_at).subtract(10, 'days').calendar()}, by {this.state.infos.owner.name}</p>
+							<p>&nbsp; / {this.state.infos.owner.name}</p>
 						</div>
 					</div>
-					
-					<Activity activity={this.state.activity} />
 
 					<div className="page__inner">
+						<div className="activity">
+							<h2>100 Last commits activity</h2>
+							<ul className="list">
+								{this.renderActivity()}
+							</ul>
+						</div>
+					</div>
+	
+					<div className="page__inner">
 						<div className="contributors has-background">
-							<h2>{this.state.contributors.length} Contributors</h2>
+							<h2>All Contributors ({this.state.contributors.length})</h2>
 							<ul className="list">
 								{this.renderContributors()}
 							</ul>
 						</div>
 					</div>
-					
-					<Commits commits={this.state.commits} />
 
-					<Languages languages={this.state.languages} />
+					<ProgressBar languages={this.state.languages} />
 					
 				</div>
 			</DocumentTitle>

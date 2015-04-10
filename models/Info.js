@@ -1,7 +1,7 @@
 
 /**
  * Info model
- * @param {string} item from infos array
+ * @param {string} item  > From infos array
  */
 
 var Info = function (item) {
