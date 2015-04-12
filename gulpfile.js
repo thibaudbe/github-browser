@@ -204,11 +204,11 @@ gulp.task('default', [
 ]);
 
 // Waits until clean is finished then builds the project
-gulp.task('heroku:production', function() {
-	gulp.start([
-		'build'
-	]);
-});
+// gulp.task('heroku:production', function() {
+// 	gulp.start([
+// 		'build'
+// 	]);
+// });
 
 gulp.task('build', ['clean'], function() {
 	gulp.start([
