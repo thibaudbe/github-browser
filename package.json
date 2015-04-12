@@ -22,7 +22,8 @@
   ],
   "author": "Thibaud B. <contact@thibaudb.com>",
   "license": "MIT",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "browser-sync": "^2.0.1",
     "browserify": "^9.0.4",
     "del": "^1.1.1",
@@ -48,9 +49,7 @@
     "gulp-watch": "^4.1.1",
     "proxy-middleware": "^0.11.0",
     "reactify": "^1.1.0",
-    "url": "^0.10.3"
-  },
-  "dependencies": {
+    "url": "^0.10.3",
     "body-parser": "~1.0.0",
     "cookie-parser": "~1.0.1",
     "d3": "^3.5.5",
