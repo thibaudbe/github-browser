@@ -70,6 +70,6 @@
     "reflux": "^0.2.7",
     "request": "^2.54.0",
     "static-favicon": "~1.0.0",
-    "superagent": "~1.1.0",
+    "superagent": "~1.1.0"
   }
 }
